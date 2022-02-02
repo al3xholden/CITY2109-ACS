@@ -5,6 +5,7 @@
 #include <functional>
 #include <fstream>
 #include <mutex>
+#include <stdio.h>
 //#import md5.h
 
 using namespace std;
@@ -35,79 +36,88 @@ private:
 };
 
 
-class person
+struct CollegePeople 
 {
-
-    string IDCard = "";
+public:
     string name = "";
+    string IDCard = "";
     string CardType = "";
 
-public:
-    string getName() { return name; } // Gets name of Person
     void setName(string newName) { name = newName; } //Set name of a person
     string getIDCard() { return IDCard; };
-private:
 
 };
 
 
 class Log 
 {
-   ofstream swipeLog ("Log.txt");
+   //ofstream swipeLog ("Log.txt");
 };
 
 
-struct student : public person // Structure for student role, extends from person class.
+struct student : public CollegePeople // Structure for student role, extends from person class.
 {
-
-   person ID_Card();
+    string name;
+    
 };
 
 
-struct staff_member : public person // Structure for staff member role, extends from person class.
-{
-
-};
-
-
-struct guest : public person // Structure for guest / visitor role, extends from person class.
+struct staff_member : public CollegePeople // Structure for staff member role, extends from person class.
 {
 
 };
 
 
-struct cleaner : public person // Structure for cleaner role, extends from person class.
+struct guest : public CollegePeople // Structure for guest / visitor role, extends from person class.
 {
 
 };
 
 
-struct manager : public person // Structure for manager role, extends from person class.
+struct cleaner : public CollegePeople // Structure for cleaner role, extends from person class.
 {
 
 };
 
 
-struct security : public person // Structure for security role, extends from person class.
+struct manager : public CollegePeople // Structure for manager role, extends from person class.
 {
 
 };
 
 
-struct emergency_responder : public person // Structure for emergency_responder role, extends from person class.
+struct security : public CollegePeople // Structure for security role, extends from person class.
 {
 
 };
 
-class room
+
+struct emergency_responder : public CollegePeople // Structure for emergency_responder role, extends from person class.
 {
-    ofstream RoomList("RoomList.txt");
+
+};
+
+struct room
+{
+    //ofstream RoomList("RoomList.txt");
+
+    string roomName = "";
+    string roomID = "";
+    string building = "";
+    string roomState = "";
 
 
 public:
-    string room_mode1 = "EMERGENCY";
-    string room_mode2 = "NORMAL";
+    string room_state1 = "EMERGENCY";
+    string room_state2 = "NORMAL";
 
+};
+
+struct roomState 
+{
+    string roomState;
+
+    string getRoomState() { return roomState; };
 };
 
 // Structure for lecture_hall, extends from base room class
@@ -134,9 +144,6 @@ struct secure_room : public room
 
 
 };
-
-
-
 
 // Login / System Security - Add MD5 encryption here
 int login() {
@@ -289,8 +296,41 @@ int choice1() // view and manage rooms
     //1 Add a room
     if(inputchoice==1) 
     {
-        
+        string buildingname;
+        string roomname;
+        int roomid = rand() % 5;
+        room A;
 
+        // Settting room name
+        cout << "You're about to create a new room. \n";
+        cout << "Room Name? \n";
+        cout << "...  ";  cin >> roomname;
+        
+        // Displaying room name
+        A.roomName = roomname;
+        cout << "Room name : " << A.roomName << ".\n";
+        cout << "Press any key to continue. \n";
+        _getch();
+
+        // Settting building name
+        cout << "Building? \n";
+        cout << "...  ";  cin >> buildingname;
+        A.building = buildingname;
+
+        cout << "Building : " << A.building << ".\n";
+
+        A.roomID = roomid;
+        cout << "Room ID = " << A.roomID << ".\n";
+
+        cout << "Press any key to create a new room called " << A.roomName << " in building " << A.building << ".\n";
+        _getch();
+        
+ 
+
+
+
+        
+   
     
     }
 
