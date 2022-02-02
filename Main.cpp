@@ -105,13 +105,13 @@ private:
 
 class Log 
 {
-    ifstream swipeLog ("swipeLog.txt");
+   // ifstream swipeLog ("swipeLog.txt");
 };
 
 struct student : public person // Structure for student role, extends from person class.
 {
 
-    person.CardID();
+   // person.CardID();
 };
 
 struct staff_member : public person // Structure for staff member role, extends from person class.
