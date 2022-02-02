@@ -9,59 +9,6 @@
 
 using namespace std;
 
-/*
-
-// Observers (also known as listeners), in this case, are objects that implement the observer interface
-class observer
-{
-public:
-    virtual void notify() = 0;
-};
-
-
-class observer_concrete : public observer
-{
-public:
-    virtual void notify() override
-    { }
-};
-
-// The subject class contains a vector of references to observers
-class subject
-{
-public:
-    void register_observer(observer& o) // The register_observer function adds observers to the vector, which are later to be notified by the notify_observers function.
-    {
-        observers.push_back(o);
-    }
-    void notify_observers()
-    {
-        for (observer& o : observers) {
-            o.notify();
-        }
-    }
-private:
-    vector<reference_wrapper<observer>> observers;
-};
-
-class idCard : public subject // Observed by the cardReader (Observer)
-{
-
-};
-
-
-class cardReader : public observer // Observing idCard (Observed)
-{
-
-};
-
-struct building {};
-
-struct room : building {}; // Structure for a room, which extends from the building object
-
-*/
-
-
 // Observers (also known as listeners), in this case, are objects that implement the observer interface
 class observer
 {
@@ -86,58 +33,66 @@ public:
 private:
     vector<reference_wrapper<observer>> observers;
 };
+
 
 class person
 {
-    int cardID;
+
+    string IDCard = "";
     string name = "";
     string CardType = "";
-    string emergency = "";
 
 public:
     string getName() { return name; } // Gets name of Person
     void setName(string newName) { name = newName; } //Set name of a person
-
-
+    string getIDCard() { return IDCard; };
 private:
 
 };
 
+
 class Log 
 {
-   // ifstream swipeLog ("swipeLog.txt");
+   ofstream swipeLog ("Log.txt");
 };
+
 
 struct student : public person // Structure for student role, extends from person class.
 {
 
-   // person.CardID();
+   person ID_Card();
 };
+
 
 struct staff_member : public person // Structure for staff member role, extends from person class.
 {
 
 };
 
+
 struct guest : public person // Structure for guest / visitor role, extends from person class.
 {
 
 };
+
 
 struct cleaner : public person // Structure for cleaner role, extends from person class.
 {
 
 };
 
+
 struct manager : public person // Structure for manager role, extends from person class.
 {
 
 };
 
+
 struct security : public person // Structure for security role, extends from person class.
 {
 
 };
+
 
 struct emergency_responder : public person // Structure for emergency_responder role, extends from person class.
 {
@@ -146,28 +101,42 @@ struct emergency_responder : public person // Structure for emergency_responder 
 
 class room
 {
+    ofstream RoomList("RoomList.txt");
+
+
+public:
+    string room_mode1 = "EMERGENCY";
+    string room_mode2 = "NORMAL";
 
 };
 
-struct lecture_hall : public room // Structure for lecture_hall, extends from base room class
+// Structure for lecture_hall, extends from base room class
+struct lecture_hall : public room 
 {
 
 };
 
-struct teaching_room : public room // Structure for teaching_room, extends from base room class
+// Structure for teaching_room, extends from base room class
+struct teaching_room : public room 
 {
 
 };
 
-struct staff_room : public room // Structure for staff_room, extends from base room class
+// Structure for staff_room, extends from base room class
+struct staff_room : public room 
 {
 
 };
 
-struct secure_room : public room // Structure for secure_room, extends from base room class
+// Structure for secure_room, extends from base room class
+struct secure_room : public room 
 {
 
+
 };
+
+
+
 
 // Login / System Security - Add MD5 encryption here
 int login() {
@@ -199,8 +168,8 @@ int login() {
     return 0;
 };
 
-//Initiate login before Main so that I can return to main without having to re-login.
-//----------------------------------------- login_BeforeMain is fully functional. Deactivated for now for development / testing purposes.
+// Initiate login before Main so that I can return to main without having to re-login.
+// login_BeforeMain is fully functional. Deactivated for now for development / testing purposes.
 class login_BeforeMain {
 
 public:
@@ -220,8 +189,7 @@ public:
     }
 }; 
 
-// Global variable to declare
-// the object of class login_BeforeMain
+// Global variable to declare - the object of class login_BeforeMain
 login_BeforeMain obj;
 
 
@@ -300,12 +268,12 @@ int main()
 
 };
 
-// 1 view and manage rooms
+// choice1 - view and manage rooms
 int choice1() // view and manage rooms
 {
     system("CLS");
-    cout << " | ID   | Name          | Card Type     | Emergency   " << endl;
-    cout << " =======+===============+===============+=============\n";
+    cout << " | BUILDING       | ROOM ID | ROOM NAME     | ROOM MODE   " << endl;
+    cout << " +================+=========+===============+=============\n";
 
     int inputchoice = 0; // Menu choice - Default = 0
     cout << endl;
@@ -321,7 +289,8 @@ int choice1() // view and manage rooms
     //1 Add a room
     if(inputchoice==1) 
     {
-        cout << "hellooo";
+        
+
     
     }
 
@@ -349,31 +318,54 @@ int choice1() // view and manage rooms
     return 0;
 }
 
-// 2 view and manage ID cards
+// choice2 - view and manage ID cards
 int choice2() // view and manage rooms
 {
+    system("CLS");
+    cout << " | CARD ID   | NAME          | CARD TYPE     " << endl;
+    cout << " ============+===============+===============\n";
+
+
+
     return 0;
 }
 
-// 3 simulate a card swipe
+// choice3 - simulate a card swipe
 int choice3() // view and manage rooms
 {
     return 0;
 }
 
-// 4 put a room in or out of emergency state
+// choice4 - put a room in or out of emergency state
 int choice4() // view and manage rooms
 {
+    int buildingID;
+    cout << "Please type in the building ID \n";
+    cin >> buildingID;
+
+    cout << "Please type in the building ID \n";
+
+    int inputchoice = 0; // Menu choice - Default = 0
+    cout << "Please choose a room mode. \n";
+    cout << "1 = EMERGENCY \n";
+    cout << "2 = NORMAL \n";
+    cout << endl;
+    cout << " Choice : ";
+    cin >> inputchoice;
+    cout << endl;
+
+    if (inputchoice == 1) {  }
+
     return 0;
 }
 
-// 5 view swipe log
+// choice5 - view swipe log
 int choice5() // view and manage rooms
 {
     return 0;
 }
 
-// 6 manage preferences
+// choice6 - manage preferences
 int choice6() // view and manage rooms
 {
     return 0;
