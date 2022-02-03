@@ -6,9 +6,11 @@
 #include <fstream>
 #include <mutex>
 #include <stdio.h>
+#include "stopwatch.cpp"
 //#import md5.h
 
 using namespace std;
+using namespace chrono;
 
 // Observers (also known as listeners), in this case, are objects that implement the observer interface
 class observer
@@ -279,7 +281,7 @@ int main()
 int choice1() // view and manage rooms
 {
     system("CLS");
-    cout << " | BUILDING       | ROOM ID | ROOM NAME     | ROOM MODE   " << endl;
+    cout << " | BUILDING       | ROOM ID | ROOM NAME     | ROOM STATE   " << endl;
     cout << " +================+=========+===============+=============\n";
 
     int inputchoice = 0; // Menu choice - Default = 0
@@ -298,35 +300,47 @@ int choice1() // view and manage rooms
     {
         string buildingname;
         string roomname;
-        int roomid = rand() % 5;
+        int roomid = rand() % 5; // Generates a random 5 digit ID for the new room
         room A;
+        
+        A.roomID = roomid;
 
         // Settting room name
         cout << "You're about to create a new room. \n";
         cout << "Room Name? \n";
         cout << "...  ";  cin >> roomname;
-        
-        // Displaying room name
         A.roomName = roomname;
+
+        // Displaying room name
+        cout << endl;
         cout << "Room name : " << A.roomName << ".\n";
         cout << "Press any key to continue. \n";
         _getch();
 
         // Settting building name
-        cout << "Building? \n";
+        cout << endl;
+        cout << "Building name? \n";
         cout << "...  ";  cin >> buildingname;
         A.building = buildingname;
-
+        
+        // Displaying building name
+        cout << endl;
         cout << "Building : " << A.building << ".\n";
 
-        A.roomID = roomid;
+        // Displaying room ID
+        cout << endl;
         cout << "Room ID = " << A.roomID << ".\n";
 
-        cout << "Press any key to create a new room called " << A.roomName << " in building " << A.building << ".\n";
+        cout << "Press any key to create a new room called '" << A.roomName << "' in building '" << A.building << "' with the room ID '" << A.roomID << "'\n";
         _getch();
+
+        ofstream Log;
+        Log.open("RoomList.txt", fstream::app);
+        Log << "\n" << A.roomID << " | " << A.building << " | " << A.roomName << endl;
+        Log.close();
         
  
-
+        return choice1();
 
 
         
