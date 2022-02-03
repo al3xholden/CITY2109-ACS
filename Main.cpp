@@ -136,9 +136,14 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
 
     class roomState
     {
-        string roomState;
+        int roomState;
+    public:
+        int getRoomState() { return roomState; };
 
-        string getRoomState() { return roomState; };
+        int roomState_printer() {
+            if (roomState == 1) { cout << "EMERGENCY"; }
+            else if (roomState == 2) { cout << "NORMAL"; }
+        }
     };
 
     // Structure for lecture_hall, extends from base room class
@@ -423,12 +428,6 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
     // choice4 - put a room in or out of emergency state
     int choice4() // view and manage rooms
     {
-        int buildingID;
-        cout << "Please type in the building ID \n";
-        cin >> buildingID;
-
-        cout << "Please type in the building ID \n";
-
         int inputchoice = 0; // Menu choice - Default = 0
         cout << "Please choose a room mode. \n";
         cout << "1 = EMERGENCY \n";
@@ -438,7 +437,8 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
         cin >> inputchoice;
         cout << endl;
 
-        if (inputchoice == 1) {}
+        if (inputchoice == 1) { roomState(1); cout << "Room state set to " << roomState; }
+        if (inputchoice == 2) { roomState(2); cout << "Room state set to " << roomState; }
 
         return 0;
     }
