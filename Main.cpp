@@ -12,31 +12,6 @@
 using namespace std;
 using namespace chrono;
 
-// Observers (also known as listeners), in this case, are objects that implement the observer interface
-class observer
-{
-public:
-    virtual void notify() = 0;
-};
-
-// The subject class contains a vector of references to observers
-class subject
-{
-public:
-    void register_observer(observer& o) // The register_observer function adds observers to the vector, which are later to be notified by the notify_observers function.
-    {
-        observers.push_back(o);
-    }
-    void notify_observers()
-    {
-        for (observer& o : observers) {
-            o.notify();
-        }
-    }
-private:
-    vector<reference_wrapper<observer>> observers;
-};
-
 class Log 
 {
    //ofstream swipeLog ("Log.txt");
@@ -80,43 +55,61 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
     public:
         string name;
         string IDCard;
-        string CardType = "Level_1";
+        string CardType = "Student";
     };
 
 
     class staff_member : public CollegePeople // Structure for staff member role, extends from person class.
     {
-
+    public:
+        string name;
+        string IDCard;
+        string CardType = "Staff Member";
     };
 
 
     class guest : public CollegePeople // Structure for guest / visitor role, extends from person class.
     {
-
+    public:
+        string name;
+        string IDCard;
+        string CardType = "Guest";
     };
 
 
     class cleaner : public CollegePeople // Structure for cleaner role, extends from person class.
     {
-
+    public:
+        string name;
+        string IDCard;
+        string CardType = "Cleaner";
     };
 
 
     class manager : public CollegePeople // Structure for manager role, extends from person class.
     {
-
+    public:
+        string name;
+        string IDCard;
+        string CardType = "Manager";
     };
 
 
     class security : public CollegePeople // Structure for security role, extends from person class.
     {
-
+    public:
+        string name;
+        string IDCard;
+        string CardType = "Security";
     };
 
 
     class emergency_responder : public CollegePeople // Structure for emergency_responder role, extends from person class.
     {
-
+    public:
+        string name;
+        string IDCard;
+        string CardType = "Emergency Responder";
     };
 
     class room
@@ -136,8 +129,9 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
 
     class roomState
     {
+        public:
         int roomState;
-    public:
+    
         int getRoomState() { return roomState; };
 
         int roomState_printer() {
@@ -187,12 +181,12 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
             cout << '*';
             ch = _getch();
         }
-        if (pass == "admin") {
+        if (pass == "password") {
             cout << "\n\n\n\t\t\tAccess Granted! \n";
             system("CLS");
         }
         else {
-            cout << "\n\n\t\t\tAccess denied\n\t\t\tPlease Try Again\n\n";
+            cout << "\n\n\t\t\tAccess denied\n\t\t\tTry Again\n\n";
             system("PAUSE");
             system("CLS");
             login();
@@ -308,6 +302,11 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
         cout << " | BUILDING       | ROOM ID | ROOM NAME     | ROOM STATE   " << endl;
         cout << " +================+=========+===============+=============\n";
 
+
+        ifstream RoomList("RoomList.txt");
+        if (RoomList.is_open())
+            std::cout << RoomList.rdbuf();
+
         int inputchoice = 0; // Menu choice - Default = 0
         cout << endl;
         cout << " 1 Add a room. \n";
@@ -325,6 +324,9 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
             string buildingname;
             string roomname;
             int roomid = rand() % 5; // Generates a random 5 digit ID for the new room
+            string theroomState;
+
+
             room A;
 
             A.roomID = roomid;
@@ -355,41 +357,39 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
             cout << endl;
             cout << "Room ID = " << A.roomID << ".\n";
 
+            cout << "Room State : " << A.roomState << "\n";
+            cout << "...  ";  cin >> theroomState;
+            if (theroomState == "1") { theroomState == "NORMAl"; }
+            if (theroomState == "2") { theroomState == "EMERGENCY"; }
+
             cout << "Press any key to create a new room called '" << A.roomName << "' in building '" << A.building << "' with the room ID '" << A.roomID << "'\n";
             _getch();
 
-            ofstream Log;
-            Log.open("RoomList.txt", fstream::app);
-            Log << "\n" << A.roomID << " | " << A.building << " | " << A.roomName << endl;
-            Log.close();
-
-
+            ofstream RoomList;
+            RoomList.open("RoomList.txt", fstream::app);
+            RoomList << "\n" << " " << A.building << " | " << A.roomID << " | " << A.roomName << " | " << theroomState << endl;
+            RoomList.close();
             return choice1();
-
-
-
-
-
         }
 
         // 2 Edit or delete a room
         if (inputchoice == 2)
         {
-            cout << "hellooo";
+            
 
         }
 
         // 3 Save room data
         if (inputchoice == 3)
         {
-            cout << "hellooo";
+            
 
         }
 
         // 4 Reload rooms file
         if (inputchoice == 4)
         {
-            cout << "hellooo";
+            return choice1();
 
         }
 
@@ -397,7 +397,7 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
     }
 
     // choice2 - view and manage ID cards
-    int choice2() // view and manage rooms
+    int choice2()
     {
         system("CLS");
         cout << " | CARD ID   | NAME          | CARD TYPE     " << endl;
@@ -413,11 +413,9 @@ class generateCardNumber : public IDCard { int cardNumber = rand() % 8;};
         cin >> inputchoice;
         cout << endl;
 
-        
-
 
         return 0;
-    }
+    };
 
     // choice3 - simulate a card swipe
     int choice3() // view and manage rooms
